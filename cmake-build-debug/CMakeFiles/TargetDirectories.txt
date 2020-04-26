@@ -1,6 +1,0 @@
-/Users/zouchunxu/CLionProjects/geekal/cmake-build-debug/CMakeFiles/rebuild_cache.dir
-/Users/zouchunxu/CLionProjects/geekal/cmake-build-debug/CMakeFiles/edit_cache.dir
-/Users/zouchunxu/CLionProjects/geekal/cmake-build-debug/CMakeFiles/geekal.dir
-/Users/zouchunxu/CLionProjects/geekal/cmake-build-debug/list/CMakeFiles/rebuild_cache.dir
-/Users/zouchunxu/CLionProjects/geekal/cmake-build-debug/list/CMakeFiles/edit_cache.dir
-/Users/zouchunxu/CLionProjects/geekal/cmake-build-debug/list/CMakeFiles/List.dir
