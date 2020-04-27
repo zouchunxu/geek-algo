@@ -7,13 +7,14 @@
 
 #include <cstdlib>
 #include <cstring>
+#include <math.h>
 
 template<typename T>
 class List;
 
 template<typename T>
 class ListNode {
-private:
+public:
     T val;
     ListNode *next;
     ListNode *prev;
@@ -23,10 +24,10 @@ private:
 
 template<typename T>
 class List {
-private:
+public:
     ListNode<T> *head;
     int size;
-public:
+
     List();
 
     T *get(int index);
@@ -128,5 +129,55 @@ List<T>::~List() {
     delete head;
 }
 
+template<typename T>
+bool isPalindrome(List<T> &list) {
+    int mid = ceil((float) list.size / 2);
+
+    ListNode<T> *start = list.head->next;
+    ListNode<T> *end = list.head->prev;
+
+    for (int i = 0; i < mid; ++i) {
+        if (start->val != end->val) {
+            return false;
+        }
+        start = start->next;
+        end = end->prev;
+    }
+    return true;
+}
+
+template<typename T>
+bool isPalindromeNoSafe(List<T> l) {
+    ListNode<int> *fast = l.head->next;
+    ListNode<int> *slow = l.head->next;
+    ListNode<int> *prev = l.head->next;
+
+    while (fast->next != l.head) {
+        fast = fast->next->next;
+        ListNode<int> *next = slow->next;
+        slow->next = prev;
+        prev = slow;
+        slow = next;
+
+        if (fast == l.head) {
+            break;
+        }
+    }
+
+    if (fast != l.head) {
+        slow = slow->next;
+    }
+
+    ListNode<int> *cur = prev;
+    while (slow != l.head) {
+        if (cur->val != slow->val) {
+            return false;
+        }
+        slow = slow->next;
+        cur = cur->next;
+    }
+
+    return true;
+}
 
 #endif //GEEKAL_LIST_HPP

@@ -4,13 +4,21 @@
 using namespace std;
 
 int main() {
+    List<int> l;
 
-//    List<int> l;
-//
-//    l.put(2);
-//    l.put(3);
-//
+    l.put(1);
+    l.put(2);
+
+//    l.put(1);
+
+    l.put(2);
+    l.put(1);
+
 //    l.set(0, 10);
-//    cout << *(l.get(0))<< endl;
+
+    cout << isPalindrome(l) << endl;
+
+
+
     return 0;
 }
