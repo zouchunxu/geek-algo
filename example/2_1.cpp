@@ -8,14 +8,15 @@ using namespace std;
 
 int main() {
 
-    Stack<int> s(2);
+    Stack<int> s(1);
 
     s.put(1);
     s.put(2);
     s.put(3);
+    s.put(4);
+    s.put(5);
+//    s.put(2);
 
-    cout << s.pop() << endl;
-    cout << s.pop() << endl;
     cout << s.pop() << endl;
 
     return 0;

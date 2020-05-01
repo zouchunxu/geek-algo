@@ -6,6 +6,7 @@
 #define GEEKAL_STACK_H
 
 #include <cstdlib>
+#include <iostream>
 
 template<typename T>
 class Stack {
@@ -25,7 +26,7 @@ public:
 
 template<typename T>
 Stack<T>::Stack(int n) {
-    d = (T *) (malloc(n * sizeof(T)));
+    d = new T[n];
     size = n;
     curr = 0;
 }
@@ -33,21 +34,24 @@ Stack<T>::Stack(int n) {
 
 template<typename T>
 void Stack<T>::put(T val) {
-    d[curr] = val;
-    curr++;
+
+    if (curr == size) {
+        T *n = new T[size * 2];
+        memcpy(n, d, sizeof(T) * size);
+        delete[] d;
+        d = n;
+        size = size * 2;
+    }
+
+    d[curr++] = val;
 }
 
 template<typename T>
 T Stack<T>::pop() {
-
-    T v = d[0];
-    for (int i = 0; i < curr; ++i) {
-        d[i] = d[i + 1];
+    if (curr < 1) {
+        throw std::exception();
     }
-    curr--;
-    size--;
-
-    return v;
+    return d[--curr];
 }
 
 template<typename T>
