@@ -8,6 +8,8 @@
 #include <cstdlib>
 #include <iostream>
 
+using namespace std;
+
 template<typename T>
 class Stack {
 private:
@@ -17,7 +19,11 @@ private:
 public:
     Stack(int n);
 
+    Stack();
+
     void put(T val);
+
+    bool isEmpty();
 
     T pop();
 
@@ -30,7 +36,6 @@ Stack<T>::Stack(int n) {
     size = n;
     curr = 0;
 }
-
 
 template<typename T>
 void Stack<T>::put(T val) {
@@ -49,16 +54,30 @@ void Stack<T>::put(T val) {
 template<typename T>
 T Stack<T>::pop() {
     if (curr < 1) {
-        throw std::exception();
+        throw std::runtime_error("error");
     }
     return d[--curr];
 }
+
 
 template<typename T>
 Stack<T>::~Stack() {
     if (d != nullptr)
         delete[] d;
 }
+
+template<typename T>
+Stack<T>::Stack(): size(20), curr(0) {
+    d = new T[size];
+}
+
+template<typename T>
+bool Stack<T>::isEmpty() {
+    return curr < 1;
+}
+
+
+int calc(const string &str);
 
 
 #endif //GEEKAL_STACK_H

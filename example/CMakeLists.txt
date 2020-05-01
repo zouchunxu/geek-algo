@@ -1,4 +1,4 @@
 
-add_executable(example 2_1.cpp)
+add_executable(example 2_2.cpp)
 
-target_link_libraries(example List)
+target_link_libraries(example List Stack)
