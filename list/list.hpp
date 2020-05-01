@@ -8,6 +8,7 @@
 #include <cstdlib>
 #include <cstring>
 #include <math.h>
+#include <iostream>
 
 template<typename T>
 class List;
@@ -37,6 +38,10 @@ public:
     void del(int index);
 
     void set(int index, T val);
+
+    void reverse();
+
+    bool isLoop();
 
     ~List();
 };
@@ -100,6 +105,15 @@ void List<T>::set(int index, T val) {
 
 template<typename T>
 void List<T>::del(int index) {
+
+    bool r = false;
+
+    if (index < 0) {
+        index = -index;
+        this->reverse();
+        r = true;
+    }
+
     ListNode<T> *l = this->head;
     for (int i = 0; i <= index; ++i) {
         l = l->next;
@@ -114,7 +128,49 @@ void List<T>::del(int index) {
     l->next->prev = l->prev;
     size--;
 
+
+    if (r) {
+        this->reverse();
+    }
+
+
     delete l;
+}
+
+template<typename T>
+void List<T>::reverse() {
+    ListNode<T> *l = this->head->next;
+    ListNode<T> *prev = this->head;
+
+    while (l != head) {
+        ListNode<T> *n = l->next;
+
+        l->next = prev;
+        l->prev = n;
+
+        prev = l;
+        l = n;
+    }
+
+    this->head->next = prev;
+}
+
+template<typename T>
+bool List<T>::isLoop() {
+    ListNode<T> *slow = this->head->next;
+    ListNode<T> *fast = this->head->next;
+
+
+    while (slow != head) {
+        fast = fast->next->next;
+        slow = slow->next;
+
+        if (fast == slow) {
+            return true;
+        }
+    }
+
+    return false;
 }
 
 template<typename T>
