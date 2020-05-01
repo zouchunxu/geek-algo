@@ -39,6 +39,8 @@ public:
 
     void set(int index, T val);
 
+    ListNode<T> *centNode();
+
     void reverse();
 
     bool isLoop();
@@ -172,6 +174,25 @@ bool List<T>::isLoop() {
 
     return false;
 }
+
+template<typename T>
+ListNode<T> *List<T>::centNode() {
+    ListNode<T> *slow = head->next;
+    ListNode<T> *fast = head->next;
+
+    while (fast != head) {
+
+        if (fast->next == head) {
+            break;
+        }
+
+        slow = slow->next;
+        fast = fast->next->next;
+    }
+
+    return slow;
+}
+
 
 template<typename T>
 List<T>::~List() {

@@ -12,6 +12,4 @@ include_directories(./ ./list)
 
 add_subdirectory(list)
 
-add_executable(geekal ${DIRSRCS} )
-
-target_link_libraries(geekal List)
+add_subdirectory(example)
