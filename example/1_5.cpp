@@ -12,12 +12,13 @@ int main() {
     LRUCache<int> lruCache(2);
 
 
-    lruCache.put("a",1);
-    lruCache.put("b",2);
-    lruCache.get("a");
-    lruCache.put("c",3);
+    lruCache.put("a", 1);
+    lruCache.put("b", 2);
+    lruCache.put("a", 3);
 
-    cout << *(lruCache.get("b")) << endl;
+//    lruCache.del("a");
+
+    cout << *(lruCache.get("a")) << endl;
 
 
     return 0;

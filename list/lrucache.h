@@ -25,7 +25,6 @@ public:
 
     void del(string key);
 
-
     ~LRUCache();
 };
 
@@ -35,6 +34,11 @@ LRUCache<T>::LRUCache(int _size) : size(_size), curr(0) {}
 
 template<typename T>
 void LRUCache<T>::put(string k, T val) {
+
+    if (this->get(k) != nullptr) {
+        this->del(k);
+    }
+
     if (curr == size) {
         l.head->prev->val = pair<string, T>(k, val);
     } else {
@@ -58,6 +62,27 @@ void LRUCache<T>::put(string k, T val) {
 
         curr++;
     }
+}
+
+template<typename T>
+void LRUCache<T>::del(string key) {
+    ListNode<pair<string, T>> *listNode = l.head->next;
+
+    while (listNode != l.head) {
+
+        pair<string, T> p = listNode->val;
+
+        if (p.first == key) {
+
+            listNode->next->prev = listNode->prev;
+            listNode->prev->next = listNode->next;
+
+
+            delete listNode;
+            return;
+        }
+    }
+
 }
 
 template<typename T>
