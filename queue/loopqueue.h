@@ -28,32 +28,24 @@ public:
 template<typename T>
 void LoopQueue<T>::push(T v) {
 
-    if (size == tail && head == 0) {
+    if ((tail + 1) % size == head) {
         return;
     }
 
-    if (size == tail) {
-        tail = 0;
-    }
-
-    if (tail == head && tail != 0) {
-        return;
-    }
-
-    data[tail++] = v;
-
+    data[tail] = v;
+    tail = (tail + 1) % size;
 }
 
 template<typename T>
 T *LoopQueue<T>::pop() {
-    if (size == head) {
-        head = 0;
-    }
-    if (tail == head) {
+
+    if ((head + 1) % size == head) {
         return nullptr;
     }
 
-    return &(data[head++]);
+    T * t =  &(data[head]);
+    head = (head + 1) % size;
+    return t;
 }
 
 
