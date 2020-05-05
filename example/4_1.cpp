@@ -10,7 +10,7 @@ using namespace std;
 int main() {
 
     int count = 5;
-    int arr[] = {1, 3, 2, 7,5};
+    int arr[] = {1, 3, 2, 7, 5};
 
     ArraySort::mergeSort(arr, count);
 

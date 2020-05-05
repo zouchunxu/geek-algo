@@ -20,6 +20,7 @@ void ArraySort::mergeSortC(int *a, int s, int p) {
 
     int t = d + 1;
     int i = 0;
+    int o = s;
 
     int c = p + 1;
     int arr[c];
@@ -39,8 +40,8 @@ void ArraySort::mergeSortC(int *a, int s, int p) {
     }
 
 
-    for (int j = 0; j <= p; ++j) {
-        a[j] = arr[j];
+    for (int j = 0; j < c; ++j) {
+        a[o++] = arr[j];
     }
 
 }
