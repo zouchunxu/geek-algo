@@ -1,4 +1,4 @@
 
-add_executable(example 3_3.cpp)
+add_executable(example 4_1.cpp)
 
-target_link_libraries(example List Stack Queue)
+target_link_libraries(example List Stack Queue Sort)
