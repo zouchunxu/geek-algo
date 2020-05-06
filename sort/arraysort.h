@@ -9,9 +9,11 @@
 class ArraySort {
 public:
     static void mergeSort(int *a,int count);
+    static void quickSort(int *a,int count);
 
 private:
     static void mergeSortC(int *a, int s, int p);
+    static void quickSortC(int *a, int s, int p);
 };
 
 

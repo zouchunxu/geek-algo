@@ -46,5 +46,45 @@ void ArraySort::mergeSortC(int *a, int s, int p) {
 
 }
 
+void ArraySort::quickSort(int *a, int count) {
+    quickSortC(a, 0, count - 1);
+}
+
+
+void ArraySort::quickSortC(int *a, int s, int p) {
+
+    if (s >= p) {
+        return;
+    }
+
+    int tmp = a[s];
+    int begin = s;
+    int end = p;
+    while (begin < end) {
+
+        while (begin < end && a[end] > tmp) {
+            end--;
+        }
+
+        if (begin < end) {
+            a[begin++] = a[end];
+        }
+
+
+        while (begin < end && a[begin] < tmp) {
+            begin++;
+        }
+
+        if (begin < end) {
+            a[end--] = a[begin];
+        }
+    }
+    a[begin] = tmp;
+
+
+    quickSortC(a, s, begin);
+    quickSortC(a, begin + 1, p);
+}
+
 
 
