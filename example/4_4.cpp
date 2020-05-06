@@ -2,9 +2,6 @@
 // Created by 邹春旭 on 2020-05-06.
 //
 
-//
-// Created by 邹春旭 on 2020-05-06.
-//
 
 #include <iostream>
 #include "sort/arraysort.h"
