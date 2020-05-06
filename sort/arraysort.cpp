@@ -2,7 +2,12 @@
 // Created by 邹春旭 on 2020-05-05.
 //
 
+#include <vector>
+#include <unordered_map>
+#include <map>
 #include "arraysort.h"
+
+using namespace std;
 
 void ArraySort::mergeSort(int *a, int count) {
     mergeSortC(a, 0, count - 1);
@@ -85,6 +90,7 @@ void ArraySort::quickSortC(int *a, int s, int p) {
     quickSortC(a, s, begin);
     quickSortC(a, begin + 1, p);
 }
+
 
 
 
