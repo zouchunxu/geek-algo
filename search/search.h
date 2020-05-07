@@ -9,6 +9,10 @@
 class Search {
 public:
     static int binarySearch(const int *a, int val, int count);
+
+    static int binarySearchFirst(const int *a, int val, int count);
+    static int binarySearchLessFirst(const int *a, int val, int count);
+    static int binarySearchLast(const int *a, int val, int count);
 };
 
 
