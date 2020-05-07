@@ -8,11 +8,13 @@ set(CMAKE_CXX_FLAGS_RELEASE "$ENV{CXXFLAGS} -O3 -Wall")
 
 aux_source_directory(. DIRSRCS)
 
-include_directories(./ ./list ./stack ./queue ./sort)
+include_directories(./ ./list ./stack ./queue ./sort ./search)
 
 add_subdirectory(list)
 add_subdirectory(stack)
 add_subdirectory(queue)
 add_subdirectory(sort)
+add_subdirectory(search)
+
 
 add_subdirectory(example)
