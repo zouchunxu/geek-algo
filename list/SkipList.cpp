@@ -4,12 +4,10 @@
 
 #include "SkipList.h"
 
-using namespace std;
-
 CNode::CNode() {
     m_data = -1;
     m_iMaxLevel = 0;
-    for (int i = 0; i < MAX_LEVEL; ++i) {
+    for (int i = 0; i < MAX_LEVEL; i++) {
         m_lpForwards[i] = NULL;
     }
 }
@@ -34,13 +32,12 @@ void CNode::SetLevel(int l) {
     m_iMaxLevel = l;
 }
 
-string CNode::toString() {
+std::string CNode::toString() {
     char tmp[32];
-    string ret;
+    std::string ret;
 
     ret.append("{ data: ");
     sprintf(tmp, "%d", m_data);
-    ret.append(tmp);
     ret.append("; levels: ");
     sprintf(tmp, "%d", m_iMaxLevel);
     ret.append(tmp);
@@ -58,44 +55,46 @@ CSkipList::~CSkipList() {
 }
 
 CNode *CSkipList::Find(int v) {
-    CNode *lpNode = m_lpHead;
+    CNode *head = m_lpHead;
 
-    for (int i = levelCount - 1; i >= 0; --i) {
-        while (NULL != lpNode->GetIdxList()[i] && (lpNode->GetIdxList()[i]->GetData() < v)) {
-            lpNode = lpNode->GetIdxList()[i];
+    for (int i = levelCount - 1; i >= 0; i--) {
+        while (head->GetIdxList()[i] != NULL && head->GetIdxList()[i]->GetData() < v) {
+            head = head->GetIdxList()[i];
         }
     }
-    if (NULL != lpNode->GetIdxList()[0] && (lpNode->GetIdxList()[0]->GetData() == v)) {
-        return lpNode->GetIdxList()[0];
+
+    if (head->GetIdxList()[0] != NULL && head->GetIdxList()[0]->GetData() == v) {
+        return head->GetIdxList()[0];
     }
-    return NULL;
+
+    return nullptr;
 }
 
 void CSkipList::Insert(int v) {
-    CNode *lpNewNode = new CNode();
-    if (NULL == lpNewNode) {
-        return;
-    }
-
+    auto *node = new CNode();
     int level = RandomLevel();
-    lpNewNode->SetData(v);
-    lpNewNode->SetLevel(level);
+    node->SetData(v);
+    node->SetLevel(level);
 
-    CNode *lpUpdateNode[level];
+    CNode *updateNode[level];
+
     for (int i = 0; i < level; ++i) {
-        lpUpdateNode[i] = m_lpHead;
+        updateNode[i] = m_lpHead;
     }
-    CNode *lpFind = m_lpHead;
-    for (int i = level - 1; i >= 0; --i) {
-        while ((NULL != lpFind->GetIdxList()[i]) && (lpFind->GetIdxList()[i]->GetData() < v)) {
-            lpFind = lpFind->GetIdxList()[i];
+
+
+    CNode *head = m_lpHead;
+
+    for (int i = levelCount - 1; i >= 0; i--) {
+        while (head->GetIdxList()[i] != NULL && head->GetIdxList()[i]->GetData() < v) {
+            head = head->GetIdxList()[i];
         }
-        lpUpdateNode[i] = lpFind;
+        updateNode[i] = head;
     }
 
     for (int i = 0; i < level; ++i) {
-        lpNewNode->GetIdxList()[i] = lpUpdateNode[i]->GetIdxList()[i];
-        lpUpdateNode[i]->GetIdxList()[i] = lpNewNode;
+        node->GetIdxList()[i] = updateNode[i]->GetIdxList()[i];
+        updateNode[i]->GetIdxList()[i] = node;
     }
 
     if (levelCount < level) {
@@ -108,28 +107,32 @@ int CSkipList::Delete(int v) {
     CNode *lpUpdateNode[levelCount];
     CNode *lpFind = m_lpHead;
     for (int i = levelCount - 1; i >= 0; --i) {
+        /**
+         * 查找小于v的节点(lpFind).
+        */
         while ((NULL != lpFind->GetIdxList()[i]) && (lpFind->GetIdxList()[i]->GetData() < v)) {
             lpFind = lpFind->GetIdxList()[i];
         }
         lpUpdateNode[i] = lpFind;
     }
-
-    if (NULL != lpFind->GetIdxList()[0] && (lpFind->GetIdxList()[0]->GetData() == v)) {
+    /**
+     * lpFind 是小于v的节点, lpFind的下一个节点就等于或大于v的节点
+    */
+    if ((NULL != lpFind->GetIdxList()[0]) && (lpFind->GetIdxList()[0]->GetData() == v)) {
         for (int i = levelCount - 1; i >= 0; --i) {
-            if (NULL != lpUpdateNode[i]->GetIdxList()[i] && v == lpUpdateNode[i]->GetIdxList()[i]->GetData()) {
+            if ((NULL != lpUpdateNode[i]->GetIdxList()[i]) && (v == lpUpdateNode[i]->GetIdxList()[i]->GetData())) {
                 lpUpdateNode[i]->GetIdxList()[i] = lpUpdateNode[i]->GetIdxList()[i]->GetIdxList()[i];
                 ret = 0;
             }
         }
     }
-
     return ret;
 }
 
 void CSkipList::PrintAll() {
     CNode *lpNode = m_lpHead;
     while (NULL != lpNode->GetIdxList()[0]) {
-        cout << lpNode->GetIdxList()[0]->toString().data() << endl;
+        std::cout << lpNode->GetIdxList()[0]->toString().data() << std::endl;
         lpNode = lpNode->GetIdxList()[0];
     }
 }
@@ -137,22 +140,24 @@ void CSkipList::PrintAll() {
 void CSkipList::PrintAll(int l) {
     for (int i = MAX_LEVEL - 1; i >= 0; --i) {
         CNode *lpNode = m_lpHead;
-        cout << "第" << i << "级" << endl;
+        std::cout << "第" << i << "级:" << std::endl;
         if ((l < 0) || ((l >= 0) && (l == i))) {
             while (NULL != lpNode->GetIdxList()[i]) {
-                cout << lpNode->GetIdxList()[i]->GetData() << " ";
+                std::cout << lpNode->GetIdxList()[i]->GetData() << " ";
                 lpNode = lpNode->GetIdxList()[i];
             }
-            cout << endl;
-            if (l >= 0) break;
+            std::cout << std::endl;
+            if (l >= 0) {
+                break;
+            }
         }
     }
 }
 
 int GetRandom() {
     static int _count = 1;
-    default_random_engine generator(time(0) + _count);
-    uniform_int_distribution<int> distribution(1, 99999);
+    std::default_random_engine generator(time(0) + _count);
+    std::uniform_int_distribution<int> distribution(1, 99999/*0x7FFFFFFF*/);
     int dice_roll = distribution(generator);
     _count += 100;
     return dice_roll;
@@ -167,3 +172,4 @@ int CSkipList::RandomLevel() {
     }
     return level;
 }
+
