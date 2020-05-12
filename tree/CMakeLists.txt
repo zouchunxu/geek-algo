@@ -1,1 +1,3 @@
-aux_source_directory()
+aux_source_directory(./ DIRSRCS)
+
+add_library(Tree ${DIRSRCS})
