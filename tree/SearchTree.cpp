@@ -63,3 +63,64 @@ int SearchTree::_get(TreeNode *t, int val) {
     }
 
 }
+
+void SearchTree::del(int val) {
+    TreeNode *p = treeNode;
+    TreeNode *pp = nullptr;
+
+    while (p != nullptr) {
+        if (p->val == val) {
+            break;
+        } else if (p->val < val) {
+            pp = p;
+            p = p->right;
+        } else if (p->val > val) {
+            pp = p;
+            p = p->left;
+        }
+    }
+
+    if (p == nullptr) {
+        return;
+    }
+
+    TreeNode *min;
+    TreeNode *minP;
+    if (pp->left != nullptr && pp->right != nullptr) {
+
+        TreeNode *tmp = pp->right;
+
+
+        while (tmp->left != nullptr) {
+            minP = tmp;
+            tmp = tmp->left;
+        }
+
+        min = tmp;
+
+        p->val = min->val;
+        p = min;
+        pp = minP;
+    }
+
+
+    TreeNode *child;
+
+    if (p->left != nullptr) {
+        child = p->left;
+    } else if (p->right != nullptr) {
+        child = p->right;
+    } else {
+        child = nullptr;
+    }
+
+    if(pp == nullptr){
+        treeNode = child;
+    } else if(pp->left == p) {
+        pp->left = child;
+    } else {
+        pp->right = child;
+    }
+
+
+}

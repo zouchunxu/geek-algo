@@ -13,6 +13,7 @@ int main() {
     searchTree.insert(2);
     searchTree.insert(3);
     searchTree.insert(6);
+    searchTree.del(6);
     cout << searchTree.get(1) << endl;
     cout << searchTree.get(6) << endl;
     cout << searchTree.get(7) << endl;
