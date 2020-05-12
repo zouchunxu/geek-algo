@@ -26,6 +26,12 @@ public:
 
     void print();
 
+    void reserve();
+
+    int getDepth();
+
+    void floorLevelTree();
+
 private:
     TreeNode *treeNode;
 
@@ -34,6 +40,10 @@ private:
     int _get(TreeNode *treeNode, int val);
 
     void _print(TreeNode *treeNode);
+
+    void _reserve(TreeNode *t);
+
+    int _getDepth(TreeNode *t);
 };
 
 

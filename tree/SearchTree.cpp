@@ -4,6 +4,7 @@
 
 #include "SearchTree.h"
 #include <iostream>
+#include <queue>
 
 using namespace std;
 
@@ -19,6 +20,8 @@ int SearchTree::get(int val) {
 SearchTree::SearchTree() {
     treeNode = new TreeNode;
     treeNode->val = -999;
+    treeNode->left = nullptr;
+    treeNode->right = nullptr;
 }
 
 SearchTree::~SearchTree() {
@@ -28,7 +31,7 @@ SearchTree::~SearchTree() {
 void SearchTree::_insert(TreeNode *t, int val) {
 
     if (t->val < val) {
-
+//        cout << (t->right != nullptr) << endl;
         if (t->right != nullptr) {
             _insert(t->right, val);
             return;
@@ -36,6 +39,8 @@ void SearchTree::_insert(TreeNode *t, int val) {
 
         t->right = new TreeNode;
         t->right->val = val;
+        t->right->left = nullptr;
+        t->right->right = nullptr;
 
     } else if (t->val > val) {
         if (t->left != nullptr) {
@@ -45,11 +50,10 @@ void SearchTree::_insert(TreeNode *t, int val) {
 
         t->left = new TreeNode;
 
-        t->val = val;
-
+        t->left->val = val;
+        t->left->left = nullptr;
+        t->left->right = nullptr;
     }
-
-
 }
 
 int SearchTree::_get(TreeNode *t, int val) {
@@ -139,7 +143,66 @@ void SearchTree::_print(TreeNode *t) {
         return;
     }
 
-    cout << t->val << endl;
     _print(t->left);
+    cout << t->val << endl;
     _print(t->right);
 }
+
+void SearchTree::reserve() {
+    _reserve(treeNode);
+}
+
+void SearchTree::_reserve(TreeNode *t) {
+
+    if (t == nullptr) {
+        return;
+    }
+
+    _reserve(t->left);
+    _reserve(t->right);
+
+
+    TreeNode *tmp = t->left;
+    t->left = t->right;
+    t->right = tmp;
+}
+
+
+int SearchTree::_getDepth(TreeNode *t) {
+    if (t == nullptr) {
+        return 0;
+    }
+
+    return max(_getDepth(t->left), _getDepth(t->right)) + 1;
+}
+
+int SearchTree::getDepth() {
+    return _getDepth(treeNode);
+}
+
+void SearchTree::floorLevelTree() {
+    queue<TreeNode *> q;
+
+
+    q.push(treeNode);
+
+    while (!q.empty()) {
+        auto tmp = q.front();
+        q.pop();
+
+
+        cout << tmp->val << endl;
+
+        if (tmp->left != nullptr) {
+            q.push(tmp->left);
+        }
+
+        if (tmp->right != nullptr) {
+            q.push(tmp->right);
+        }
+    }
+
+
+}
+
+

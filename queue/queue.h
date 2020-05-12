@@ -18,6 +18,8 @@ public:
 
     void push(T val);
 
+    bool isEmpty();
+
     T *pop();
 
     ~Queue();
@@ -66,6 +68,11 @@ T *Queue<T>::pop() {
 template<typename T>
 Queue<T>::~Queue() {
     delete[] data;
+}
+
+template<typename T>
+bool Queue<T>::isEmpty() {
+    return head == size;
 }
 
 
