@@ -3,6 +3,9 @@
 //
 
 #include "SearchTree.h"
+#include <iostream>
+
+using namespace std;
 
 void SearchTree::insert(int val) {
     _insert(treeNode, val);
@@ -62,6 +65,8 @@ int SearchTree::_get(TreeNode *t, int val) {
         return _get(t->left, val);
     }
 
+    return -1;
+
 }
 
 void SearchTree::del(int val) {
@@ -114,13 +119,27 @@ void SearchTree::del(int val) {
         child = nullptr;
     }
 
-    if(pp == nullptr){
+    if (pp == nullptr) {
         treeNode = child;
-    } else if(pp->left == p) {
+    } else if (pp->left == p) {
         pp->left = child;
     } else {
         pp->right = child;
     }
 
 
+}
+
+void SearchTree::print() {
+    _print(treeNode);
+}
+
+void SearchTree::_print(TreeNode *t) {
+    if (t == nullptr) {
+        return;
+    }
+
+    cout << t->val << endl;
+    _print(t->left);
+    _print(t->right);
 }
