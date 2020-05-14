@@ -16,6 +16,8 @@ public:
 
     void del(int value);
 
+    int index(int value);
+
     ~Heap();
 
 

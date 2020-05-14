@@ -18,6 +18,7 @@ int main() {
     h.insert(6);
     h.insert(7);
     h.insert(8);
+    h.del(1);
 
 
     cout << h.exists(1) << endl;
