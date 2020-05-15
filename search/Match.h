@@ -12,6 +12,7 @@ using namespace std;
 class Match {
 public:
     static bool bfMatch(string s, string sub);
+    static bool rkMatch(string s, string sub);
 };
 
 

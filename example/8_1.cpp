@@ -4,12 +4,13 @@
 
 #include <iostream>
 #include "search/Match.h"
+#include <cmath>
 
 using namespace std;
 
 int main() {
 
-    cout << Match::bfMatch("abdd", "abc") << endl;
+    cout << Match::rkMatch("abcd", "abc") << endl;
 
     return 0;
 }
