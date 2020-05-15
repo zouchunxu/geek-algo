@@ -1,4 +1,4 @@
 
-add_executable(example 6_3.cpp)
+add_executable(example 7_1.cpp)
 
-target_link_libraries(example List Stack Queue Sort Search Tree)
+target_link_libraries(example List Stack Queue Sort Search Tree Graph)
