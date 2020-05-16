@@ -20,3 +20,10 @@ add_subdirectory(graph)
 
 
 add_subdirectory(example)
+
+find_package(PkgConfig)
+pkg_search_module(GLEW REQUIRED libpng)
+MESSAGE(STATUS "glew dirs:" ${GLEW_INCLUDE_DIRS})
+MESSAGE(STATUS "glew lib:" ${GLEW_LIBRARIES})
+include_directories(${GLEW_INCLUDE_DIRS})
+link_directories(${GLEW_LIBRARY_DIRS})
