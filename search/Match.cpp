@@ -58,7 +58,7 @@ bool Match::rkMatch(string s, string sub) {
 }
 
 int Match::bm(string a, int n, string b, int m) {
-    int bc[b.size()];
+    int bc[255];
     generateBC(b, m, bc);
     int suffix[m];
     bool prefix[m];
@@ -66,7 +66,7 @@ int Match::bm(string a, int n, string b, int m) {
     int i = 0;
     while (i <= n - m) {
         int j;
-        for (j = m - 1; j >= 0; j++) {
+        for (j = m - 1; j >= 0; j--) {
             if (a[i + j] != b[j]) break;
         }
         if (j < 0) {
@@ -97,7 +97,7 @@ void Match::generateBC(string b, int m, int *bc) {
         bc[i] = -1;
     }
 
-    for (int j = 0; j < b.size(); ++j) {
+    for (int j = 0; j < m; ++j) {
         bc[(int) b[j]] = j;
     }
 }

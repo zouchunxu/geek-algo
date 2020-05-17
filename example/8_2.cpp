@@ -9,22 +9,12 @@
 using namespace std;
 
 int main() {
+    string a = "acabcab";
     string b = "cabcab";
     int m = b.size();
-    int suffix[m];
-    bool prefix[m];
+    int n = a.size();
 
-    Match::generateGS(b, m, suffix, prefix);
-
-    for (int i = 0; i < m; ++i) {
-        cout << suffix[i] << " ";
-    }
-    cout << endl;
-
-    for (int i = 0; i < m; ++i) {
-        cout << prefix[i] << " ";
-    }
-    cout << endl;
+    cout << Match::bm(a, n, b, m) << endl;
 
 
     return 0;
