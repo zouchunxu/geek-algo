@@ -84,12 +84,15 @@ int Match::bm(string a, int n, string b, int m) {
 }
 
 int Match::moveByGS(int j, int m, int *suffix, bool *prefix) {
-    int k = m - 1 - j;
+    int k = m - j - 1;
+
     if (suffix[k] != -1) return j - suffix[k] + 1;
-    for (int r = j + 2; r <= m - 1; ++r) {
-        if (prefix[m - r]) return r;
+
+
+    for (int i = j + 2; i < m; ++i) {
+        if (prefix[m - i]) return i;
     }
-    return m;
+
 }
 
 void Match::generateBC(string b, int m, int *bc) {
